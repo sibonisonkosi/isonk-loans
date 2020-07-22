@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{%  static "css/progressbar.css" %}">
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css'>
+{% endblock css %}
+{% block content %}
+ <section class="breadcrumb-area bg-img bg-overlay jarallax" style="background-image: url({% static "img/bg-img/13.jpg" %});">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="breadcrumb-content">
+                        <h2>Loan Application</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Loan Application</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-11 col-sm-9 col-md-7 col-lg-6 col-xl-5 text-center p-0 mt-3 mb-2">
+            <div>
+                <h2 id="heading">Loan Information:</h2>
+                <form id="msform" method="post">
+                    {% csrf_token %}
+
+                    <br> <!-- fieldsets -->
+                    <fieldset>
+                        <div class="form-card">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 class="fs-title">Required Documents:</h2>
+                                </div>
+                                <div class="col-5">
+                                    <h2 class="steps">Step 3 - 4</h2>
+                                </div>
+                            </div>
+                            <label class="fieldlabels">Document Type:</label>
+                            {{ d_form.document_type}}
+                            <label class="fieldlabels">Description</label>
+                            {{ d_form.description }}
+                            <label class="fieldlabels">Uploal Document:</label>
+                            {{ d_form.doc }}
+                            <input id="add-document" type="button" name="previous"  class="action-button-previous" value="ADD"/>
+                         <table class="table table-of-contents" id="my_documents">
+                             <thead class="thead-default">
+                             <tr>
+                                 <th>Document Type</th>
+                                 <th>File</th>
+                                 <th>Action</th>
+                             </tr>
+                             </thead>
+                             <tbody >
+                             </tbody>
+                         </table>
+                        </div>
+                        <input type="submit" id="submit" name="next" class="next action-button" value="Submit" />
+
+                    </fieldset>
+                </form>
+                <div class="progress">
+    <div class="bar"></div >
+    <div class="percent">0%</div >
+</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
+{% block javascript %}
+<script>
+
+    $('#submit').click(function () {
+        $.ajax({
+             url:"{% url 'save-document' %}",
+            data:{
+                 'get':'get'
+            },
+            dataType:'json',
+            success: function(response){
+                 if(!response.all_documents_uploaded) {
+                     alert('Upload all documents')
+                 }
+                 else{
+                     setTimeout(location.href='{% url "loans:loan-application-summary" %}', 3000)
+                 }
+               }
+            })
+    })
+   $("#add-document").click(function () {
+        var files = $('input[type="file"]')[0].files[0]
+        var description = $('input[name="description"]').val().trim()
+        var document_type = $('select[name="document_type"]').val().trim()
+        var form_data = new FormData();
+        form_data.append('file',files )
+        form_data.append('description', description)
+        form_data.append('document_type', document_type)
+        form_data.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val());
+
+        if(files && description && document_type){
+             $.ajax({
+             url:"{% url 'save-document' %}",
+            data:form_data,
+            contentType: false,
+            processData: false,
+            type:'POST',
+            success: function(response){
+               if(response){
+                   $("#my_documents").show()
+                   $("#my_documents tbody").append(
+                       "<tr id='" + response.get_doc_id + "'><td>" + response.doc_type + "</td>" +
+                       "<td>" + response.name + "</td>" +
+                       "<td> <a href='#' id='btn-" +response.get_doc_id + "' onclick='removeDocument("
+                       +response.get_doc_id+")'>"+"<span><i class='fa fa-remove'></i></span>"+"<a/></td></tr>"
+                   )
+               }
+            }
+        });
+        }
+        else {
+            alert('All fields are required')
+        }
+    })
+
+    function removeDocument(e){
+        var document_id = e
+
+        $.ajax({
+            url: '{% url 'loans:remove-document' %}',
+            data: {
+                'document_id': document_id
+            },
+            dataType: 'json',
+            success: function () {
+                $("#"+document_id).remove()
+                $("#btn-"+document_id).remove()
+            }
+        })
+    }
+</script>
+{% endblock javascript %}
+

@@ -1,0 +1,347 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{%  load dashboard_template_tags %}
+
+{% block title %} Loan Application {% endblock title %}
+
+
+
+{% block content %}
+
+    <!-- Header -->
+    {% get_loan_data  %}
+
+    <div class="container-fluid mt--7">
+
+      <div class="row">
+        <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+          <div class="card card-profile shadow">
+
+            <div class="card-body pt-0 pt-md-4">
+              <div class="row">
+                <div class="col">
+              <table id="loan_table" class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                     <th scope="col">Application Information</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">
+                      <div class="media align-items-center">
+                        <div class="media-body">
+                            Loan ID
+                        </div>
+                      </div>
+                    </th>
+                    <td class="text-blue text-right">
+                        {{ loan_object.loanApp_id  }}
+                    </td>
+                  </tr><tr>
+                    <th scope="row">
+                      <div class="media align-items-center">
+                        <div class="media-body">
+                            Borrower
+                        </div>
+                      </div>
+                    </th>
+                    <td class="text-blue text-right">
+                        {{ loan_object.user.username  }}
+                    </td>
+                  </tr><tr>
+                    <th scope="row">
+                      <div class="media align-items-center">
+                        <div class="media-body">
+                            Loan Type
+                        </div>
+                      </div>
+                    </th>
+                    <td class="text-blue text-right">
+                        {{ loan_object.loan.tittle  }}
+                    </td>
+                  </tr><tr>
+                    <th scope="row">
+                      <div class="media align-items-center">
+                        <div class="media-body">
+                            Amount
+                        </div>
+                      </div>
+                    </th>
+                    <td class="text-blue text-right">
+                        R{{ loan_object.amount  }}
+                    </td>
+                  </tr><tr>
+                    <th scope="row">
+                      <div class="media align-items-center">
+                        <div class="media-body">
+                            Term
+                        </div>
+                      </div>
+                    </th>
+                    <td class="text-blue text-right">
+                        {{ loan_object.term  }} Month(s)
+                    </td>
+                  </tr><tr>
+                    <th scope="row">
+                      <div class="media align-items-center">
+                        <div class="media-body">
+                            Monthly Payment
+                        </div>
+                      </div>
+                    </th>
+                    <td class="text-blue text-right">
+                        R{{ loan_object.monthly_payment  }}
+                    </td>
+                  </tr><tr>
+                    <th scope="row">
+                      <div class="media align-items-center">
+                        <div class="media-body">
+                            Total Payment
+                        </div>
+                      </div>
+                    </th>
+                    <td class="text-blue text-right">
+                        R{{ loan_object.total_payment  }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">
+                      <div class="media align-items-center">
+                        <div class="media-body">
+                            Application Date
+                        </div>
+                      </div>
+                    </th>
+                    <td class="text-blue text-right">
+                        {{ loan_object.application_date  }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-8 order-xl-1">
+          <div class="card bg-secondary shadow">
+            <div class="card-header bg-white border-0">
+              <div class="row align-items-center">
+                <div class="col-8">
+                  <h3 class="mb-0">Loan ID :
+                    <b class="bold text-red">{{ loan_object.loanApp_id }}</b> </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <form method="post" enctype="multipart/form-data">
+                  {% csrf_token %}
+                <h6 class="heading-small text-muted mb-4">Loan Application Status</h6>
+                <div class="pl-lg-4">
+                    <div id="alert_wrapper"></div>
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username">Approved</label>
+                        {{ form.approved}}
+                          <input type="text" hidden disabled id="hidden_approved"
+                               class="form-control form-control-alternative">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-first-name">Written Off</label>
+                        {{ form.isWrittenoFF}}
+                          <input type="text" hidden disabled id="hidden_isWrittenoFF"
+                               class="form-control form-control-alternative">
+                      </div>
+                    </div>
+                      <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">Withdrawn</label>
+                        {{ form.withdrawn}}
+                        <input type="text" hidden disabled id="hidden_withdrawn"
+                               class="form-control form-control-alternative">
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-last-name">Closed</label>
+                       {{ form.isClosed }}
+                          <input type="text" hidden disabled id="hidden_isClosed"
+                               class="form-control form-control-alternative">
+                      </div>
+                    </div>
+                      <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-last-name">Declined</label>
+                       {{ form.declined }}
+                        <input type="text" hidden disabled id="hidden_declined"
+                               class="form-control form-control-alternative">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                  <button id="submit" type="submit" class="btn btn-info">Continue</button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      {% include "includes/footer.html" %}
+
+    </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}
+    <script>
+        var id_approved = document.getElementById('id_approved');
+        var id_withdrawn = document.getElementById('id_withdrawn');
+        var id_declined = document.getElementById('id_declined');
+        var id_isWrittenoFF = document.getElementById('id_isWrittenoFF');
+        var id_isClosed = document.getElementById('id_isClosed');
+
+        var hidden_approved = document.getElementById('hidden_approved');
+        var hidden_withdrawn = document.getElementById('hidden_withdrawn');
+        var hidden_declined = document.getElementById('hidden_declined');
+        var hidden_isWrittenoFF = document.getElementById('hidden_isWrittenoFF');
+        var hidden_isClosed = document.getElementById('hidden_isClosed');
+
+    function approveDecline() {
+        id_approved = document.getElementById('id_approved');
+        id_declined = document.getElementById('id_declined');
+
+        if(id_approved.value.toString() == 'True'){
+            id_declined.hidden = true;
+            hidden_declined.hidden = false;
+            hidden_declined.value = id_declined.value.toString() == 'True' ? "Yes":"No";
+        }
+        else if(id_approved.value.toString() == 'False'){
+            id_declined.hidden = false;
+            hidden_declined.hidden = true;
+        }
+
+        if(id_declined.value.toString() == 'True'){
+            id_approved.hidden = true;
+            hidden_approved.hidden = false;
+            hidden_approved.value = id_approved.value.toString() == 'True' ? "Yes":"No";
+        }
+        else if(id_declined.value.toString() == 'False'){
+            id_approved.hidden = false;
+            hidden_approved.hidden = true;
+        }
+
+    }
+
+    function disableClose() {
+        id_isClosed = document.getElementById('id_isClosed');
+        id_withdrawn = document.getElementById('id_withdrawn');
+        id_isWrittenoFF = document.getElementById('id_isWrittenoFF');
+
+       if(id_isClosed.value.toString() == 'True'){
+            id_isWrittenoFF.hidden = true;
+            hidden_isWrittenoFF.hidden = false;
+            hidden_isWrittenoFF.value = id_isWrittenoFF.value.toString() == 'True' ? "Yes":"No";
+
+            id_withdrawn.hidden = true;
+            hidden_withdrawn.hidden = false;
+            hidden_withdrawn.value = id_withdrawn.value.toString() == 'True' ? "Yes":"No";
+        }
+       else
+           if(id_isClosed.value.toString() == 'False'){
+               id_isWrittenoFF.hidden = false;
+               hidden_isWrittenoFF.hidden = true;
+
+               id_withdrawn.hidden = false;
+               hidden_withdrawn.hidden = true;
+           }
+    }
+
+    function disableWriteoff() {
+        id_isClosed = document.getElementById('id_isClosed');
+        id_withdrawn = document.getElementById('id_withdrawn');
+        id_isWrittenoFF = document.getElementById('id_isWrittenoFF');
+
+       if(id_isWrittenoFF.value.toString() == 'True'){
+            id_isClosed.hidden = true;
+            hidden_isClosed.hidden = false;
+            hidden_isClosed.value = id_isClosed.value.toString() == 'True' ? "Yes":"No";
+
+            id_withdrawn.hidden = true;
+            hidden_withdrawn.hidden = false;
+            hidden_withdrawn.value = id_withdrawn.value.toString() == 'True' ? "Yes":"No";
+        }
+       else
+           if(id_isWrittenoFF.value.toString() == 'False'){
+               id_isClosed.hidden = false;
+               hidden_isClosed.hidden = true;
+
+               id_withdrawn.hidden = false;
+               hidden_withdrawn.hidden = true;
+           }
+
+    }
+
+    function disableWithdrawn() {
+        id_isClosed = document.getElementById('id_isClosed');
+        id_withdrawn = document.getElementById('id_withdrawn');
+        id_isWrittenoFF = document.getElementById('id_isWrittenoFF');
+
+       if(id_withdrawn.value.toString() == 'True'){
+            id_isWrittenoFF.hidden = true;
+            hidden_isWrittenoFF.hidden = false;
+            hidden_isWrittenoFF.value = id_isWrittenoFF.value.toString() == 'True' ? "Yes":"No";
+
+            id_isClosed.hidden = true;
+            hidden_isClosed.hidden = false;
+            hidden_isClosed.value = id_isClosed.value.toString() == 'True' ? "Yes":"No";
+        }
+       else
+           if(id_withdrawn.value.toString() == 'False'){
+               id_isWrittenoFF.hidden = false;
+               hidden_isWrittenoFF.hidden = true;
+
+               id_isClosed.hidden = false;
+               hidden_isClosed.hidden = true;
+           }
+    }
+
+    function diableStatusFields() {
+
+        if(id_approved.value.toString() == 'True'){
+            id_approved.hidden = true;
+            hidden_approved.hidden =false;
+            hidden_approved.value = id_approved.value.toString() == 'True' ? "Yes":"No";
+
+            id_declined.hidden = true;
+            hidden_declined.hidden = false;
+            hidden_declined.value = id_declined.value.toString() == 'True' ? "Yes":"No";
+        }
+        else
+        {
+            id_withdrawn.hidden = true;
+            hidden_withdrawn.hidden = false;
+            hidden_withdrawn.value = id_withdrawn.value.toString() == 'True' ? "Yes":"No";
+
+            id_isWrittenoFF.hidden = true;
+            hidden_isWrittenoFF.hidden = false;
+            hidden_isWrittenoFF.value = id_isWrittenoFF.value.toString() == 'True' ? "Yes":"No";
+
+            id_isClosed.hidden = true;
+            hidden_isClosed.hidden = false;
+            hidden_isClosed.value = id_isClosed.value.toString() == 'True' ? "Yes":"No";
+
+        }
+    }
+
+    diableStatusFields();
+    </script>
+{% endblock javascripts %}

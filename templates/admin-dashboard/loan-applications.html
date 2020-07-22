@@ -1,0 +1,243 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Tables {% endblock title %}
+
+{% block content %}
+
+    <!-- Header -->
+
+<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+      <div class="container-fluid">
+        <div class="header-body">
+          <!-- Card stats -->
+          <div class="row">
+            <div class="col-xl-2 col-lg-6">
+              <div class="card card-stats mb-4 mb-xl-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Pending</h5>
+                      <span class="h2 font-weight-bold mb-0" id="pedding_loan"></span>
+                    </div>
+                    <div class="col-auto">
+                      <a href="{% url 'dashboard:pending-loans' %}" class="icon icon-shape bg-gradient-blue text-white rounded-circle shadow">
+                        <i class="fas fa-chart-bar"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-6">
+              <div class="card card-stats mb-4 mb-xl-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Waiting</h5>
+                      <span class="h2 font-weight-bold mb-0" id="waiting_loan"></span>
+                    </div>
+                    <div class="col-auto">
+                      <a href="{% url 'dashboard:waiting-loans' %}" class="icon icon-shape bg-gradient-gray text-white rounded-circle shadow">
+                        <i class="ni ni-watch-time"></i>
+                      </a>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-6">
+              <div class="card card-stats mb-4 mb-xl-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Declined</h5>
+                      <span class="h2 font-weight-bold mb-0" id="declined_loan"></span>
+                    </div>
+                    <div class="col-auto">
+                      <a href="{% url 'dashboard:declined-loans' %}" class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                        <i class="ni ni-fat-remove"></i>
+                      </a>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-6">
+              <div class="card card-stats mb-4 mb-xl-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Withdrawn</h5>
+                      <span class="h2 font-weight-bold mb-0" id="withdrawn"></span>
+                    </div>
+                    <div class="col-auto">
+                      <a href="{% url 'dashboard:withdrawn-loans' %}" class="icon icon-shape bg-warning text-white rounded-circle shadow">
+                        <i class="ni ni-fat-delete"></i>
+                      </a>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-6">
+              <div class="card card-stats mb-4 mb-xl-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Written Off</h5>
+                      <span class="h2 font-weight-bold mb-0" id="written_off_loan"></span>
+                    </div>
+                    <div class="col-auto">
+                      <a href="{% url 'dashboard:written-off-loans' %}" class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                        <i class="ni ni-button-power"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-6">
+              <div class="card card-stats mb-4 mb-xl-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Closed</h5>
+                      <span class="h2 font-weight-bold mb-0" id="closed_loan"></span>
+                    </div>
+                    <div class="col-auto">
+                      <a href="{% url 'dashboard:closed-loans' %}" class="icon icon-shape bg-success text-white rounded-circle shadow">
+                        <i class="ni ni-check-bold"></i>
+                      </a>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="container-fluid mt--7">
+
+      <!-- Table -->
+      <div class="row">
+        <div class="col">
+          <div class="card shadow">
+            <div class="card-header border-0">
+              <h3 class="mb-0">Card tables</h3>
+            </div>
+            <div class="table-responsive">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                     <th scope="col">ID</th>
+                    <th scope="col">Loan</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Term</th>
+                    <th scope="col">Monthly Payment</th>
+                    <th scope="col">Total Payment</th>
+                    <th scope="col">Interest Paid</th>
+                    <th scope="col">Estimated End Date</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for obj in object_list %}
+                  <tr>
+                    <th scope="row">
+                      <div class="media align-items-center">
+                        <div class="media-body">
+                            {{ obj.loanApp_id }}
+                        </div>
+                      </div>
+                    </th>
+                    <td>
+                        {{ obj.loan.tittle }}
+                    </td>
+                    <td>
+                        {{ obj.amount}}
+                    </td>
+                    <td>
+                        {{ obj.term }}
+                    </td>
+                    <td>
+                        {{ obj.monthly_payment }}
+                    </td>
+                    <td>
+                        {{ obj.total_payment}}
+                    </td>
+                  <td>{{ obj.application_date}}</td>
+                  <td>{{ obj.estimated_end_date}}</td>
+                  <td>{{ obj.approved}}</td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <div class="card-footer py-4">
+              <nav aria-label="...">
+                <ul class="pagination justify-content-end mb-0">
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">
+                      <i class="fas fa-angle-left"></i>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                  <li class="page-item active">
+                    <a class="page-link" href="#">1</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item">
+                    <a class="page-link" href="#">
+                      <i class="fas fa-angle-right"></i>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      {% include "includes/footer.html" %}
+
+    </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}
+    <script>
+        var loan_data_url = '/api/loan-data/'
+        var withdrawn = document.getElementById(withdrawn)
+        var pedding_loan = document.getElementById(pedding_loan)
+        var closed_loan = document.getElementById(closed_loan)
+        var written_off_loan = document.getElementById(written_off_loan)
+        var waiting_loan = document.getElementById(waiting_loan)
+        var declined_loan = document.getElementById(declined_loan)
+        $.ajax({
+            url:loan_data_url,
+            method: 'GET',
+            success: function (context) {
+                withdrawn.innerHTML = context.withdrawn_loans
+                declined_loan.innerHTML = context.declined_loans
+                closed_loan.innerHTML = context.closed_loans
+                written_off_loan.innerHTML = context.written_off_loans
+                pedding_loan.innerHTML = context.pending_loans
+                waiting_loan.innerHTML = context.waiting_loans
+            }
+        })
+      </script>
+{% endblock javascripts %}

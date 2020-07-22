@@ -1,0 +1,54 @@
+
+<form id="proposal_form" >
+     <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+                    <div class="col-lg-12">
+                      <div class="form-group">
+                        <label class="form-control-label">Loan</label>
+                          {{ form.loan }}
+{#                        <input type="text" class="form-control form-control-alternative"#}
+{#                               placeholder="Amount" oninput="this.className = ''">#}
+                      </div>
+                    </div>
+
+        </div>
+           <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-city">Term</label>
+                        {{ form.term }}
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-country">Amount</label>
+                        {{ form.amount }}
+                      </div>
+                    </div>
+                  </div>
+          <div class="row">
+                <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-city">Monthly Payment</label>
+                        {{ form.total_payment }}
+                      </div>
+                </div>
+                <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-country">Total Payment</label>
+                        {{ form.monthly_payment }}
+                      </div>
+                </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" id="proposal_send" onclick="validate_proposal()" class="btn btn-sm btn-default">Send</button>
+      </div>
+</form>

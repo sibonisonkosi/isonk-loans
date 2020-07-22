@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{%  static "css/progressbar.css" %}">
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css'>
+{% endblock css %}
+{% block content %}
+ <section class="breadcrumb-area bg-img bg-overlay jarallax" style="background-image: url({% static "img/bg-img/13.jpg" %});">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="breadcrumb-content">
+                        <h2>Loan Application</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Loan Application</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-11 col-sm-9 col-md-7 col-lg-6 col-xl-5 text-center p-0 mt-3 mb-2">
+            <div>
+                <h2 id="heading">Loan Information:</h2>
+                <form id="msform" method="post">
+                    {% csrf_token %}
+
+                    <br> <!-- fieldsets -->
+                    <fieldset>
+                        <div class="form-card">
+                            <label class="fieldlabels">Loan Type: *</label>
+                            {{ l_form.loan}}
+                            <br>
+                            <label class="fieldlabels">Amount: *</label>
+                            {{ l_form.amount}}
+                            <label class="fieldlabels">Term: *</label>
+                            {{ l_form.term}}
+                            <br>
+                            <label class="fieldlabels">Monthly Payment:</label>
+                            {{ l_form.monthly_payment }}
+                            <label class="fieldlabels">Total Payment: </label>
+                            {{ l_form.total_payment }}
+                        </div> <input type="submit" name="Submit" class="action-button" value="Submit" />
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
+{% block javascript %}
+<script>
+  //get calculations
+    $("#id_amount").change(function () {
+        var amount = $('input[name="amount"]').val().trim()
+        var loan = $('select[name="loan"]').val().trim()
+        var term = $('input[name="term"]').val().trim()
+        if( amount && term && loan){
+            $.ajax({
+                url: '/loan-management/get-loan/',
+                data: {
+                    'amount': amount,
+                    'term': term,
+                    'loan': loan
+                },
+                dataType: 'json',
+                success: function (context) {
+                    $('input[name="total_payment"]').val(context.for_frontend.total_payment)
+                    $('input[name="monthly_payment"]').val(context.for_frontend.monthly_payment)
+                }
+            });
+        }
+        else{
+            if(amount == "" || term == "") {
+                $("#id_amount").fadeIn(function () {
+                    $("#loan_summary").hide()
+                })
+            }
+        }    })
+</script>
+{% endblock javascript %}
+

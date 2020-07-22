@@ -1,0 +1,328 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %} Loan Application {% endblock title %}
+{% block stylesheets %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src=" {% static "mysite/js/jquery/jquery-2.2.4.min.js" %}"></script>
+{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- Header -->
+    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
+         style="min-height: 600px; background-image: url(/static/assets/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
+      <!-- Mask -->
+      <span class="mask bg-gradient-default opacity-8"></span>
+      <!-- Header container -->
+      <div class="container-fluid d-flex align-items-center">
+        <div class="row">
+          <div class="col-lg-7 col-md-10">
+            <h1 class="display-2 text-white">Customer Information</h1>
+            <p class="text-white mt-0 mb-5">This is the loan application page. You can apply for a loan by providing the
+            required details</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid mt--7">
+
+      <div class="row">
+        <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+          <div class="card card-profile shadow">
+            <div class="row justify-content-center">
+              <div class="col-lg-3 order-lg-2">
+                <div class="card-profile-image">
+                  <a href="#">
+                    <img src="/static/assets/img/theme/team-4-800x800.jpg" class="rounded-circle">
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+              <div class="d-flex justify-content-between">
+                <a href="#" class="btn btn-sm btn-info mr-4">Connect</a>
+                <a href="#" class="btn btn-sm btn-default float-right">Message</a>
+              </div>
+            </div>
+            <div class="card-body pt-0 pt-md-4">
+              <div class="row">
+                <div class="col">
+                  <div class="card-profile-stats d-flex justify-content-center mt-md-5">
+                    <div>
+                      <span class="heading">22</span>
+                      <span class="description">Friends</span>
+                    </div>
+                    <div>
+                      <span class="heading">10</span>
+                      <span class="description">Photos</span>
+                    </div>
+                    <div>
+                      <span class="heading">89</span>
+                      <span class="description">Comments</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                <h3>
+                  {{ request.user.username }}
+                </h3>
+                <div class="h5 font-weight-300">
+                  {{ request.user.email }}
+                </div>
+                <div class="h5 mt-4">
+                  <i class="ni business_briefcase-24 mr-2"></i>Solution Manager - Creative Tim Officer
+                </div>
+                <div>
+                  <i class="ni education_hat mr-2"></i>University of Computer Science
+                </div>
+                <hr class="my-4" />
+                <p>Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music.</p>
+                <a href="#">Show more</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-8 order-xl-1">
+          <div class="card bg-secondary shadow">
+            <div class="card-header bg-white border-0">
+              <div class="row align-items-center">
+                <div class="col-8">
+                  <h3 class="mb-0">Customer Information </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <form method="post" enctype="multipart/form-data">
+                  {% csrf_token %}
+                <h6 class="heading-small text-muted mb-4">Personal information</h6>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="form-group">
+                        <label class="form-control-label" >ID Number</label>
+                        {{ form.id_num}}
+                        <input type="text" hidden disabled class="form-control form-control-alternative" id="id_id_num_hidden"/>
+                          <div id="alert_wrapper"></div>
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" >Date of Birth</label>
+                        {{ form.dob}}
+                          <input type="text" hidden disabled class="form-control form-control-alternative" id="id_dob_hidden"/>
+                      </div>
+                    </div>
+                      <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" >Gender</label>
+                        {{ form.gender}}
+                          <input type="text" hidden disabled class="form-control form-control-alternative" id="id_gender_hidden"/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="my-4" />
+                <!-- Address -->
+                <h6 class="heading-small text-muted mb-4">Contact information</h6>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label class="form-control-label">Phone No</label>
+                         {{ form.phone_no }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label class="form-control-label">Address</label>
+                        {{form.address}}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-control-label">Province</label>
+                        {{ form.province }}
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-control-label">City</label>
+                        {{ form.city }}
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-control-label">Postal Code</label>
+                        {{ form.postal_code }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                  <button id="submit" type="submit" class="btn btn-info">Continue</button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      {% include "includes/footer.html" %}
+
+    </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}
+    <script>
+
+    var alert_wrapper = document.getElementById('alert_wrapper');
+    var id_num = document.getElementById('id_id_num')
+    var id_dob = document.getElementById('id_dob')
+    var id_gender = document.getElementById('id_gender')
+    var id_phone_no = document.getElementById('id_phone_no')
+    var id_address = document.getElementById('id_address')
+    var id_province = document.getElementById('id_province')
+    var id_city = document.getElementById('id_city')
+    var id_postal_code = document.getElementById('id_postal_code')
+
+    function show_alert(message, alert){
+        alert_wrapper.innerHTML ='<div class="alert alert-' + alert + ' alert-dismissible fade show" role="alert">' +
+            '<span>'+message+ '</span><button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+            '<span aria-hidden="true">&times;</span></button></div>'
+    }
+
+    $(id_num).change(function () {
+        //ensure the length of the ID is 13 digits
+        var id_num_value = id_num.value
+        if(id_num_value.length != 13 || !isNumber(id_num_value)){
+            id_num.focus()
+            show_alert('SA ID Number is 13 digits', 'danger')
+            disableFields(true)
+            return 0;
+        }
+        else {
+            show_alert('')
+            disableFields(false)
+        }
+
+        get_dob(id_num_value)
+        ID_isValid(id_num_value)
+
+        var ssss = id_num_value.substr(7,4)
+        get_ID_gender(ssss, id_gender)
+        isIDExist(id_num_value)
+
+
+    })
+
+    function get_ID_gender(ssss, gender){
+        gender.value = parseInt(ssss) < 5000 ? "F": "M"
+    }
+
+    function isNumber(n) {
+        return !isNaN(parseFloat(n)) && isFinite(n);
+    }
+
+    function get_dob(id_num) {
+        $.ajax({
+            url:"{% url 'format-dob' %}",
+            data: {'id_num': id_num},
+            dataType: 'json',
+            success: function (response) {
+                if(response.for_frontend.error)
+                {
+                    show_alert('ID is invalid', 'danger')
+                }
+                else {
+                    id_dob.value = response.for_frontend.DOB
+                }
+
+            }
+        })
+    }
+
+    function isIDExist(id_num) {
+        $.ajax({
+            url:"{% url 'is-ID-exists' %}",
+            data: {'id_num': id_num},
+            dataType: 'json',
+            success: function (response) {
+                if(response.error)
+                {
+                    show_alert('ID Number already exist', 'danger')
+                    disableFields(true)
+                }
+                else {
+                    disableFields(false)
+                }
+
+            }
+        })
+    }
+
+
+    function ID_isValid(id_num){
+        $.ajax({
+            url:"{% url 'is-ID-valid' %}",
+            data: {'id_num': id_num},
+            dataType: 'json',
+            success: function (response) {
+                if(!response.ID_isValid)
+                {
+                    show_alert('ID Number is not valid', 'danger')
+                    disableFields(true)
+                }
+                else {
+                    disableFields(false)
+                }
+
+            }
+        })
+    }
+
+    function disableFields(isDisabled){
+        id_dob.disabled = isDisabled
+        id_gender.disabled = isDisabled
+        id_phone_no.disabled = isDisabled
+        id_address.disabled = isDisabled
+        id_province.disabled = isDisabled
+        id_city.disabled = isDisabled
+        id_postal_code.disabled = isDisabled
+    }
+
+    function user_exist(){
+        if (id_num.value){
+            id_num.hidden =true
+            id_gender.hidden = true
+            id_dob.hidden = true
+
+            var id_dob_hidden = document.getElementById('id_dob_hidden')
+            var id_gender_hidden = document.getElementById('id_gender_hidden')
+            var id_id_num_hidden = document.getElementById('id_id_num_hidden')
+
+            id_dob_hidden.hidden=false
+            id_gender_hidden.hidden=false
+            id_id_num_hidden.hidden=false
+
+            id_dob_hidden.value = id_dob.value
+            id_gender_hidden.value =id_gender.value == "F" ? "Female":"Male"
+            id_id_num_hidden.value = id_num.value
+        }
+    }
+    user_exist()
+
+
+
+</script>
+{% endblock javascripts %}

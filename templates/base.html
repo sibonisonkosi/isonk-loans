@@ -1,0 +1,270 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Isonk Loans</title>
+
+    <link rel="icon" href="{%  static "mysite/img/core-img/favicon.ico" %}">
+{#    <script src="{%  static "js/jquery-3.4.1.js" %}"></script>#}
+    {% block css %}
+    {% endblock css %}
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="{%  static "mysite/style.css" %}">
+
+
+</head>
+<body>
+
+<!-- Preloader -->
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="lds-ellipsis">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <!-- ##### Header Area Start ##### -->
+    <header class="header-area">
+        <!-- Top Header Area -->
+        <div class="top-header-area">
+            <div class="container h-100">
+                <div class="row h-100 align-items-center">
+                    <div class="col-12 d-flex justify-content-between">
+                        <!-- Logo Area -->
+                        <div class="logo">
+                            <a href="{% url 'app:home' %}"><img src=" {% static "mysite/img/core-img/logo.png" %}" alt=""></a>
+                        </div>
+
+                        <!-- Top Contact Info -->
+                        <div class="top-contact-info d-flex align-items-center">
+                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="25 th Street Avenue, Los Angeles, CA"><img src=" {% static "mysite/img/core-img/placeholder.png" %}" alt=""> <span>25 th Street Avenue, Los Angeles, CA</span></a>
+                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="office@yourfirm.com"><img src=" {% static "mysite/img/core-img/message.png" %}" alt=""> <span>office@yourfirm.com</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navbar Area -->
+        <div class="credit-main-menu" id="sticker">
+            <div class="classy-nav-container breakpoint-off">
+                <div class="container">
+                    <!-- Menu -->
+                    <nav class="classy-navbar justify-content-between" id="creditNav">
+
+                        <!-- Navbar Toggler -->
+                        <div class="classy-navbar-toggler">
+                            <span class="navbarToggler"><span></span><span></span><span></span></span>
+                        </div>
+
+                        <!-- Menu -->
+                        <div class="classy-menu">
+
+                            <!-- Close Button -->
+                            <div class="classycloseIcon">
+                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                            </div>
+
+                            <!-- Nav Start -->
+                            <div class="classynav">
+                                <ul>
+                                    <li><a href="{% url 'app:home' %}">Home</a></li>
+                                    <li><a href="{% url 'app:about' %}">About Us</a></li>
+                                    <li><a href="{% url 'dashboard:dashboard-home' %}">Apply</a></li>
+                                    <li><a href="{% url 'app:contact' %}">Contact</a></li>
+
+                                </ul>
+                            </div>
+                            <!-- Nav End -->
+                        </div>
+
+                        <!-- Contact -->
+                        <div class="contact">
+                            <a href="#"><img src=" {% static "mysite/img/core-img/call2.png" %}" alt=""> +800 49 900 900</a>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ##### Header Area End ##### -->
+{% if messages %}
+    <div class="home_container">
+        {% for messages in messages %}
+            <div class="alert alert-{{ messages.tags }}">
+                {{ messages }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+{% block content %}
+
+{% endblock content %}
+
+    <!-- ##### Newsletter Area Start ###### -->
+    <section class="newsletter-area section-padding-100 bg-img jarallax" style="background-image: url({% static "mysite/img/bg-img/6.jpg" %});">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-sm-10 col-lg-8">
+                    <div class="nl-content text-center">
+                        <h2>Subscribe to our newsletter</h2>
+                        <form action="#" method="post">
+                            <input type="email" name="nl-email" id="nlemail" placeholder="Your e-mail">
+                            <button type="submit">Subscribe</button>
+                        </form>
+                        <p>Curabitur elit turpis, maximus quis ullamcorper sed, maximus eu neque. Cras ultrices erat nec auctor blandit.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Newsletter Area End ###### -->
+
+    <!-- ##### Footer Area Start ##### -->
+    <footer class="footer-area section-padding-100-0">
+        <div class="container">
+            <div class="row">
+
+                <!-- Single Footer Widget -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="single-footer-widget mb-100">
+                        <h5 class="widget-title">About Us</h5>
+                        <!-- Nav -->
+                        <nav>
+                            <ul>
+                                <li><a href="#">Homepage</a></li>
+                                <li><a href="#">About Us</a></li>
+                                <li><a href="#">Services &amp; Offers</a></li>
+                                <li><a href="#">Portfolio Presentation</a></li>
+                                <li><a href="#">The News</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+                <!-- Single Footer Widget -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="single-footer-widget mb-100">
+                        <h5 class="widget-title">Solutions</h5>
+                        <!-- Nav -->
+                        <nav>
+                            <ul>
+                                <li><a href="#">Our Loans</a></li>
+                                <li><a href="#">Trading &amp; Commerce</a></li>
+                                <li><a href="#">Banking &amp; Private Equity</a></li>
+                                <li><a href="#">Industrial &amp; Factory</a></li>
+                                <li><a href="#">Financial Solutions</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+                <!-- Single Footer Widget -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="single-footer-widget mb-100">
+                        <h5 class="widget-title">Our Loans</h5>
+                        <!-- Nav -->
+                        <nav>
+                            <ul>
+                                <li><a href="#">Our Loans</a></li>
+                                <li><a href="#">Trading &amp; Commerce</a></li>
+                                <li><a href="#">Banking &amp; Private Equity</a></li>
+                                <li><a href="#">Industrial &amp; Factory</a></li>
+                                <li><a href="#">Financial Solutions</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+                <!-- Single Footer Widget -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="single-footer-widget mb-100">
+                        <h5 class="widget-title">Latest News</h5>
+
+                        <!-- Single News Area -->
+                        <div class="single-latest-news-area d-flex align-items-center">
+                            <div class="news-thumbnail">
+                                <img src=" {% static "mysite/img/bg-img/7.jpg" %}" alt="">
+                            </div>
+                            <div class="news-content">
+                                <a href="#">How to get the best loan?</a>
+                                <div class="news-meta">
+                                    <a href="#" class="post-author"><img src=" {% static "mysite/img/core-img/pencil.png" %}" alt=""> Jane Smith</a>
+                                    <a href="#" class="post-date"><img src=" {% static "mysite/img/core-img/calendar.png" %}" alt=""> April 26</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Single News Area -->
+                        <div class="single-latest-news-area d-flex align-items-center">
+                            <div class="news-thumbnail">
+                                <img src=" {% static "mysite/img/bg-img/8.jpg" %}" alt="">
+                            </div>
+                            <div class="news-content">
+                                <a href="#">A new way to get a loan</a>
+                                <div class="news-meta">
+                                    <a href="#" class="post-author"><img src=" {% static "mysite/img/core-img/pencil.png" %}" alt=""> Jane Smith</a>
+                                    <a href="#" class="post-date"><img src=" {% static "mysite/img/core-img/calendar.png" %}" alt=""> April 26</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Single News Area -->
+                        <div class="single-latest-news-area d-flex align-items-center">
+                            <div class="news-thumbnail">
+                                <img src=" {% static "mysite/img/bg-img/9.jpg" %}" alt="">
+                            </div>
+                            <div class="news-content">
+                                <a href="#">Finance you home</a>
+                                <div class="news-meta">
+                                    <a href="#" class="post-author"><img src=" {% static "mysite/img/core-img/pencil.png" %}" alt=""> Jane Smith</a>
+                                    <a href="#" class="post-date"><img src=" {% static "mysite/img/core-img/calendar.png" %}" alt=""> April 26</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Copywrite Area -->
+        <div class="copywrite-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="copywrite-content d-flex flex-wrap justify-content-between align-items-center">
+                            <!-- Footer Logo -->
+                            <a href="index.html" class="footer-logo"><img src=" {% static "mysite/img/core-img/logo.png" %}" alt=""></a>
+
+                            <!-- Copywrite Text -->
+                            <p class="copywrite-text"><a href="#">Copyright &copy;<script>document.write(new Date().getFullYear());</script></a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- ##### Footer Area Start ##### -->
+
+    <!-- ##### All Javascript Script ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script src=" {% static "mysite/js/jquery/jquery-2.2.4.min.js" %}"></script>
+    <!-- Popper js -->
+    <script src=" {% static "mysite/js/bootstrap/popper.min.js" %}"></script>
+    <!-- Bootstrap js -->
+    <script src=" {% static "mysite/js/bootstrap/bootstrap.min.js" %}"></script>
+    <!-- All Plugins js -->
+    <script src=" {% static "mysite/js/plugins/plugins.js" %}"></script>
+    <!-- Active js -->
+    <script src=" {% static "mysite/js/active.js" %}"></script>
+
+</body>
+</html>
