@@ -20,7 +20,7 @@ django-import-export==2.0.2
 django-material-admin==1.7.0
 django-progressbarupload==0.1.7
 django-storages==1.9.1
-djangorestframework==3.11.0
+djangorestframework==3.11.2
 docutils==0.15.2
 et-xmlfile==1.0.1
 filelock==3.0.12
